@@ -14,7 +14,15 @@ const PORT = process.env.PORT || 5001
 app.listen(PORT, console.log(`Server started on port ${PORT}`))
 
 app.post('/send-email', async (req, res) => {
-  const { email } = req.body
+  const { email, name } = req.body
+
+  if (!email) {
+    return res.status(400).json({ error: 'Email is required' })
+  }
+
+  if (!name) {
+    return res.status(400).json({ error: 'Name is required' })
+  }
 
   try {
     await sendEmail(req.body)
