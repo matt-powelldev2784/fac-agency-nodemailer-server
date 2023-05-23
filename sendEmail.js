@@ -1,6 +1,8 @@
 const nodemailer = require('nodemailer')
 
-async function sendEmail() {
+async function sendEmail(emailBody) {
+  const { name } = emailBody
+
   let transporter = nodemailer.createTransport({
     host: 'smtp-relay.sendinblue.com',
     port: 587,
@@ -11,12 +13,17 @@ async function sendEmail() {
     },
   })
 
+  const html = `<b>Hello ${name},</b>
+    <p>Thanks for contacting Agency 20:50.</p>
+    <p>One of our team will be in contact shortly.</p>
+     `
+
   let info = await transporter.sendMail({
     from: '"Agency 20:50" <no-reply@2050.com>', // sender address
     to: 'matt.powell2784@gmail.com', // list of receivers
-    subject: 'Thanks for contacting Agency 20:50', // Subject line
+    subject: `Thanks for contacting Agency 20:50`, // Subject line
     text: 'Hello world?', // plain text body
-    html: '<b>Hello world?</b>', // html body
+    html: html, // html body
   })
 
   console.log('Message sent: %s', info.messageId)
