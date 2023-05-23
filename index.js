@@ -14,9 +14,11 @@ const PORT = process.env.PORT || 5001
 app.listen(PORT, console.log(`Server started on port ${PORT}`))
 
 app.post('/send-email', async (req, res) => {
+  const { email } = req.body
+
   try {
     await sendEmail(req.body)
-    res.status(200).json({ message: 'Email sent successfully' })
+    res.status(200).json({ message: `Email sent successfully to ${email}` })
   } catch (error) {
     console.error(error)
     res.status(500).json({ error: 'Failed to send email' })
