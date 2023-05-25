@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer')
 
 async function sendEmail(emailBody) {
-  const { name } = emailBody
+  const { name, email } = emailBody
 
   let transporter = nodemailer.createTransport({
     host: 'smtp-relay.sendinblue.com',
@@ -20,7 +20,7 @@ async function sendEmail(emailBody) {
 
   let info = await transporter.sendMail({
     from: '"Agency 20:50" <no-reply@2050.com>', // sender address
-    to: 'matt.powell2784@gmail.com', // list of receivers
+    to: email, // list of receivers
     subject: `Thanks for contacting Agency 20:50`, // Subject line
     text: 'Hello world?', // plain text body
     html: html, // html body
